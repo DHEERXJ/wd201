@@ -7,6 +7,20 @@
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Dheeraj krishna <dheerajdheeru64@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "minimist": "^1.2.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DHEERXJ/wd201.git"
+  },
+  "keywords": [
+    "wd201"
+  ],
+  "bugs": {
+    "url": "https://github.com/DHEERXJ/wd201/issues"
+  },
+  "homepage": "https://github.com/DHEERXJ/wd201#readme"
 }
