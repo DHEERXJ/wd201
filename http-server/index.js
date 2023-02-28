@@ -1,51 +1,60 @@
-const http_server = require("http_server");
-const file_server = require("file_server");
-const args = require("minimist")(process.argv);
-let content_home = "";
-let projectContent = "";
-let registrationContent = "";
+const h_server = require("http");
+const f_server = require("fs");
 
-file_server.readFile("home.html", (err, home) => {
-  if (err) {
-    throw err;
+let minimist = require('minimist')
+
+let args = minimist(process.argv.slice(2));
+console.log(args);
+
+let homes_contents = "";
+let pro_contents = "";
+let reg_contents = "";
+
+f_server.readFile("home.html", (errors, home) => {
+  if (errors) {
+    throw errors;
   }
   else{
-    content_home = home;
+    homes_contents = home;
   }
   
 });
 
-file_server.readFile("project.html", (err, project) => {
-  if (err) {
-    throw err;
+f_server.readFile("project.html", (errors, project) => {
+  if (errors) {
+    throw errors;
   }
-  projectContent = project;
+  pro_contents = project;
 });
 
-file_server.readFile("registration.html", (err, registration) => {
-  if (err) {
-    throw err;
+f_server.readFile("registration.html", (errors, registration) => {
+  if (errors) {
+    throw errors;
   }
-  registrationContent = registration;
+  reg_contents = registration;
 });
 
-http_server
+h_server
   .createServer((request, response) => {
     let url = request.url;
     response.writeHeader(200, { "Content-Type": "text/html" });
     switch (url) {
       case "/project":
-        response.write(projectContent);
+        response.write(pro_contents);
         response.end();
         break;
-      case "/registration.html":
-        response.write(registrationContent);
+      case "/registration":
+        response.write(reg_contents);
+        response.end();
+        break;
+      case "/home":
+        response.write(homes_contents);
         response.end();
         break;
       default:
-        response.write(content_home);
+        response.write(homes_contents);
         response.end();
         break;
     }
-  })
-  .listen(args.port);
+  }).listen(args.port, () => {
+    console.log(`http://localhost:${args.port}/`)});
