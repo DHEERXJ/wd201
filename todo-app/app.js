@@ -4,9 +4,30 @@ const { Todo } = require("./models");
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
-app.get("/", function (request, response) {
-  response.send("Hello World");
+app.set("view engine", "ejs");
+app.get("/", async (request, response) => {
+  const overdue = await Todo.overdueTodos();
+  const today = await Todo.todayTodos();
+  const later = await Todo.laterTodos();
+  if (request.accepts("html")) {
+    response.render("index", {
+      todayCount: today.length,
+      overdueTodos: overdue,
+      laterTodos: later,
+      todayTodos: today,
+
+      laterCount: later.length,
+      overdueCount: overdue.length,
+    });
+  } else {
+    response.json({
+      allTodos,
+    });
+  }
 });
+const path = require(path);
+
+app.use(express.static(path.join__dirname, "public"));
 
 app.get("/todos", async function (_request, response) {
   console.log("Processing list of all Todos ...");
