@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="index.css" rel="stylesheet">
-    <title>TODO</title>
+    <title>Todo</title>
 </head>
 <body>
-<p class="title">ToDo Here</p>
+<p class="title">Type your TODO here</p>
 <div class="page">
     <form class="input">
         <div class="todo">
@@ -24,48 +24,50 @@
     </form>
     <div class="tasks">
         <div class="overdue">
-            <div class="todo-header">
-            <h5>Overdue</h5>
+
+            <h5>OverDue
                 <span class="todo-count" id="count-overdue">
                 [<%= overdueCount %>]
             </span>
-                </div>
+            </h5>
             <ol id="overdue">
-                <% for(let j = 0;j < overdueTodos.length;j++){ %>
-                    <li>
-                        <%= overdueTodos[j].title %>
-                    </li>
-                <% } %>
+                <table>
+                <% for(let i = 0;i < overdueTodos.length;i++){ %>
+                    <tr><td><%= overdueTodos[i].title %></td></tr>
+                <% } %></table>
             </ol>
         </div>
         <div class="today">
-            <div class="todo-header">
-            <h5>Due Today</h5>
+            <h5>Today
                 <span class="todo-count" id="count-due-today">
                 [<%= todayCount %>]
             </span>
-                </div>
+            </h5>
             <ol id="today">
+                <table>
                 <% for(let i = 0;i < todayTodos.length;i++){ %>
-                    <li>
+                    <tr>
+                        <td>
                         <%= todayTodos[i].title %>
-                    </li>
+                    </td></tr>
                 <% } %>
+            </table>
             </ol>
         </div>
         <div class="upcoming">
-            <div class="todo-header">
-            <h5>Due Later</h5>
+            <h5>Upcoming
                 <span class="todo-count" id="count-due-later">
                 [<%= laterCount %>]
-            </span>
-                </div>
+            </span></h5>
             <ol id="upcoming">
+                <table>
                 <% for(let i = 0;i < laterTodos.length;i++){ %>
-                    <li>
+                    <tr>
+                        <td>
                         <%= laterTodos[i].title %>
-                    </li>
+                    </td></tr>
                 <% } %>
+            </table>
             </ol>
         </div>
     </div>
