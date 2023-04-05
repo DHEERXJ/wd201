@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="index.css" rel="stylesheet">
+    <title>TODO</title>
+</head>
+<body>
+<p class="title">ToDo Here</p>
+<div class="page">
+    <form class="input">
+        <div class="todo">
+            <label for="todo">Todo</label>
+            <input id="todo" placeholder="Type Your Task..." required type="text">
+        </div>
+        <div class="date">
+            <label for="date">Date</label>
+            <input id="date" required type="date">
+        </div>
+        <div class="add">
+            <button id="add" type="submit">Add</button>
+        </div>
+    </form>
+    <div class="tasks">
+        <div class="overdue">
+            <div class="todo-header">
+            <h5>Overdue</h5>
+                <span class="todo-count" id="count-overdue">
+                [<%= overdueCount %>]
+            </span>
+                </div>
+            <ol id="overdue">
+                <% for(let j = 0;j < overdueTodos.length;j++){ %>
+                    <li>
+                        <%= overdueTodos[j].title %>
+                    </li>
+                <% } %>
+            </ol>
+        </div>
+        <div class="today">
+            <div class="todo-header">
+            <h5>Due Today</h5>
+                <span class="todo-count" id="count-due-today">
+                [<%= todayCount %>]
+            </span>
+                </div>
+            <ol id="today">
+                <% for(let i = 0;i < todayTodos.length;i++){ %>
+                    <li>
+                        <%= todayTodos[i].title %>
+                    </li>
+                <% } %>
+            </ol>
+        </div>
+        <div class="upcoming">
+            <div class="todo-header">
+            <h5>Due Later</h5>
+                <span class="todo-count" id="count-due-later">
+                [<%= laterCount %>]
+            </span>
+                </div>
+            <ol id="upcoming">
+                <% for(let i = 0;i < laterTodos.length;i++){ %>
+                    <li>
+                        <%= laterTodos[i].title %>
+                    </li>
+                <% } %>
+            </ol>
+        </div>
+    </div>
+</div>
+<script src="index.js"></script>
+</body>
+</html>
