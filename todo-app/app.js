@@ -1,43 +1,40 @@
-/* eslint-disable no-unused-vars */
+/*create or import javascript related content(imoport the header.ejs content in index.ejs)*/
+//{%> for loop end   this is in index.ejs file
 const express = require("express");
 const app = express();
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
+const { response } = require("express");
+const path =require("path");
 app.use(bodyParser.json());
-const path = require("path");
 
-// Set EJS as view engine
-app.set("view engine", "ejs");
+app.set("view engine","ejs");     //for rendaring ejs page 
 
-app.get("/", async function (request, response) {
-  const allTodos = await Todo.getTodos();
-  if (request.accepts("html")) {
-    response.render("index", {
-      allTodos,
+app.get("/", async(request,response) =>{
+  const allTodos =await Todo.getTodos();
+  if( request.accepts("html")){         //accept req browser then show index.ejs file  and pass all todos value 
+    response.render('index', {
+      allTodos
     });
-  } else {
+  } else{
     response.json({
-      allTodos,
-    });
+      allTodos
+    })
   }
+   //fatch the alltodo 
+  // response.render('index');       //fatch the data and point first index.ejs file
 });
 
-// eslint-disable-next-line no-undef
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname,'public')));   //serve or provide a static file like css and js
 
 app.get("/todos", async function (_request, response) {
   console.log("Processing list of all Todos ...");
-  // FILL IN YOUR CODE HERE
-  try {
-    const todo = await Todo.findAll();
-    return response.json(todo);
-  } catch (error) {
-    console.log(error);
-    return response.status(422).json(error);
-  }
-  // First, we have to query our PostgerSQL database using Sequelize to get list of all Todos.
-  // Then, we have to respond with all Todos, like:
-  // response.send(todos)
+  // try {
+  //   const todolist = await Todo.findAll({order:[["id","ASC"]]});
+  //   return  response.json(todolist)
+  // } catch (error) {
+  //   return response.status(400).json(error)
+  // }
 });
 
 app.get("/todos/:id", async function (request, response) {
@@ -73,21 +70,8 @@ app.put("/todos/:id/markAsCompleted", async function (request, response) {
 
 app.delete("/todos/:id", async function (request, response) {
   console.log("We have to delete a Todo with ID: ", request.params.id);
-  // FILL IN YOUR CODE HERE
-  try {
-    const todo = await Todo.findByPk(request.params.id);
-    if (todo) {
-      const deletedTodo = await todo.deleteTodo();
-      return response.json(true);
-    } else {
-      return response.json(false);
-    }
-  } catch (error) {
-    console.log(error);
-    return response.status(422).json(error);
-  }
-
+  const deleteItem = await Todo.destroy({where:{id:request.params.id}})
+  response.send(deleteItem?true:false)
 });
 
 module.exports = app;
-
