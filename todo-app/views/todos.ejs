@@ -1,18 +1,9 @@
 <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Task</th>
-        <th>Completed</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% allTodos.forEach(todo => { %>
+    <%  for( var i=0;i< allTodos.length; i++) {%>   
         <tr>
-          <td><%= todo.id %></td>
-          <td><%= todo.title %></td>
-          <td><%= todo.completed ? 'Yes' : 'No' %></td>
+            <td>
+                <%= allTodos[i].title %>
+            </td> 
         </tr>
-      <% }); %>
-    </tbody>
-  </table>
+        <% } %>
+    </table>
